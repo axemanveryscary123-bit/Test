@@ -3,13 +3,13 @@ class LADRCController:
   LADRC is a closed-loop system that actively cancels out the external forces that result in error while being intuitive, improving on
   Dr. Jingqing Han's work on conventional ADRC. Gao's algorithm has a built in LESO to accomodate for sensor noise. 
   Also, this python implementation features two parameters, minu and maxu, which can help users of this accommodate for their plant's
-  capabilities. The only tuning parameters that are required are wc (frequency of the controller), wo (frequency of the observer), b0, and dt.
+  capabilities. The only tuning parameters that are required are wc (bandwidth of the controller), wo (bandwith of the observer), b0, and dt.
   This can only be applicable for one dimension, but can be utilized in 3d via 3d vectors.
   """
   def __init__(self, wc, wo, b0, dt, z1 = 0, z2 = 0, z3 = 0, minu = -float("inf"), maxu = float("inf")):
     """Initializes tuning parameters defined above. Defines beta1, beta2, beta3, kp, kd using the formulas according to Gao's work. Parameters of this
     function include, wc, wo, b0, dt, z1, z2, z3, minu, and maxu. wc and wo are the frequencies of the controller and observer, respectively, while b0
-    translates the input (u) into an acceleration magnitude. minu and maxu are the minimum and maximum signals that can be sent to the plant, respectively.
+    is a factor that translates the input (u) into an acceleration magnitude, depending on the plant's design. minu and maxu are the minimum and maximum signals that can be sent to the plant, respectively.
     z1, z2, and z3 are estimates of the plant's position, velocity, and acceleration. dt is simply the time step of the controller. """
     self.beta1 = 3 * wo
     self.beta2 = 3 * wo * wo
